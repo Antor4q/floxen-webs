@@ -3,8 +3,9 @@ import logo from "../../../public/logo.png"
 
 const Footer = () => {
   return (
-    <footer className="max-w-[1380px] mx-auto px-4 pb-10">
-      {/* divider */}
+    <footer className="bg-[#050505]">
+     <div className="container mx-auto px-4 pb-10">
+       {/* divider */}
 
       <div
         className="h-px w-full mb-10"
@@ -30,6 +31,7 @@ const Footer = () => {
           © 2026 Floxen. Crafted for creators.
         </p>
       </div>
+     </div>
     </footer>
   );
 };

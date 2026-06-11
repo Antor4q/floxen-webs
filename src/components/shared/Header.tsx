@@ -10,12 +10,12 @@ const Header = () => {
     const [open, setOpen] = useState(false);
     return (
        <header className="w-full px-4 sm:px-6 pt-5">
-      <div className="max-w-[1380px] mx-auto">
+      <div className="container mx-auto">
         <div className="backdrop-blur-xl rounded-2xl px-4 sm:px-6 py-4 flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3">
             <Image alt="logo" src={logo} width={150} height={50}/>
-          </div>
+          </Link>
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-10 text-sm text-zinc-300">
@@ -23,7 +23,7 @@ const Header = () => {
               Feed
             </Link>
 
-            <Link href="#" className="hover:text-white transition">
+            <Link href="/explore" className="hover:text-white transition">
               Explore
             </Link>
 
