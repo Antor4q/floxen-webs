@@ -1,6 +1,7 @@
 import Banner from "../components/home/Banner";
-import Cta from "../components/home/Cta";
+
 import Featured from "../components/home/Featured";
+import Cta from "../components/shared/Cta";
 import Header from "../components/shared/Header";
 
 export default function Home() {
@@ -49,6 +50,8 @@ export default function Home() {
         <Banner />
         <Featured/>
         {/* <Cta/> */}
+        
+       
       
       </div>
     </main>
