@@ -299,7 +299,7 @@ const handleCopy = async (id: number, prompt: string) => {
             
           
             <div className="container mx-auto px-4 py-10 relative">
-                      <div className="absolute w-[250px] h-[250px] -top-[150px] left-1/2 rounded-full bg-gradient-to-r from-[#ff3c00] via-[#ff7800] to-[#ffb450] opacity-50 blur-[150px]"></div>
+                      <div className="absolute w-[250px] h-[250px] -top-[150px] left-1/2 rounded-full bg-gradient-to-r from-[#f7e1da] via-[#ff7800] to-[#ffb450] opacity-50 blur-[150px]"></div>
   
                   <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
                     {/* Left Content */}
@@ -374,7 +374,7 @@ const handleCopy = async (id: number, prompt: string) => {
                     </div>
                     </div>
                     {/* cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-5">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 py-5">
                         {
                             projects.map((project) => <>
                                 <div
