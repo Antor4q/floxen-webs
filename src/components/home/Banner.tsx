@@ -1,5 +1,6 @@
 "use client";
 
+import { AudioWaveformIcon } from "lucide-react";
 import { AuroraText } from "../shared/aurora";
 
 
@@ -31,6 +32,56 @@ const Banner = () => {
         prompts, and build beautiful websites instantly using React, Next.js
         and Tailwind CSS.
       </p>
+       {/* cards */}
+                        <div className="py-5 flex items-center gap-10">
+                            {/* card1 */}
+                            <div className="flex items-center gap-3">
+                                <div className="bg-white/3 flex text-[#ff7800] items-center justify-center text-2xl backdrop-blur-xl w-[50px] h-[50px] rounded-full">
+                                        <AudioWaveformIcon/>
+                                </div>
+                                <div>
+                                     <h3 className="text-2xl font-bold tracking-tight text-white">
+                        12000+
+                        </h3>
+                        <p className="mt-1 text-zinc-400 text-md leading-relaxed">
+                       Inspirations
+                        </p>
+                                </div>
+
+                            </div>
+                            {/* card2 */}
+                            <div className="flex items-center gap-3">
+                                <div className="bg-white/3 flex text-[#ff7800] items-center justify-center text-2xl backdrop-blur-xl w-[50px] h-[50px] rounded-full">
+                                        <AudioWaveformIcon/>
+                                </div>
+                                <div>
+                                     <h3 className="text-2xl font-bold tracking-tight text-white">
+                        12000+
+                        </h3>
+                        <p className="mt-1 text-zinc-400 text-md leading-relaxed">
+                       Inspirations
+                        </p>
+                                </div>
+
+                            </div>
+                            {/* card3 */}
+                            <div className="flex items-center gap-3">
+                                <div className="bg-white/3 flex text-[#ff7800] items-center justify-center text-2xl backdrop-blur-xl w-[50px] h-[50px] rounded-full">
+                                        <AudioWaveformIcon/>
+                                </div>
+                                <div>
+                                     <h3 className="text-2xl font-bold tracking-tight text-white">
+                        12000+
+                        </h3>
+                        <p className="mt-1 text-zinc-400 text-md leading-relaxed">
+                       Inspirations
+                        </p>
+                                </div>
+
+                            </div>
+                           
+                          
+                        </div>
 
       {/* Buttons */}
       <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10 w-full sm:w-auto">
