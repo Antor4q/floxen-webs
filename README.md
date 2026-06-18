@@ -1,5 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
+Floxen web is a inspiration and prompt library, you can give your ai superpower to make ordinary website. 
 ## Getting Started
 
 First, run the development server:
