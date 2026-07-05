@@ -7,7 +7,7 @@ import { AuroraText } from "../shared/aurora";
 
 const Banner = () => {
     return (
-        <section className="relative w-full flex flex-col items-center text-center px-4 sm:px-6 pt-20 sm:pt-24 lg:pt-28">
+        <section className="relative w-full flex flex-col items-center text-center px-4 sm:px-6 pt-10 sm:pt-24 lg:pt-10">
            <div className="absolute w-[300px] h-[300px] mx-auto rounded-full bg-gradient-to-r from-[#ff3c00] via-[#ff7800] to-[#ffb450] opacity-20 blur-[150px]"></div>
       {/* Badge */}
       <div className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl text-zinc-400 text-xs sm:text-sm mb-7">

@@ -9,8 +9,8 @@ import logo from "../../../public/logo.png"
 const Header = () => {
     const [open, setOpen] = useState(false);
     return (
-       <header className="w-full px-4 sm:px-6 pt-5">
-      <div className="container mx-auto">
+       <header className="w-full px-10  pt-5">
+      <div className="">
         <div className="backdrop-blur-xl rounded-2xl px-4 sm:px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">

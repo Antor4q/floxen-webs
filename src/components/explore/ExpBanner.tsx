@@ -5,7 +5,7 @@ import ca from "../../../public/dsafsdafsdfasdf.jpeg"
 
 const ExpBanner = () => {
     return (
-        <div className="container mx-auto px-4 py-10 relative">
+        <div className="container mx-auto px-4 pb-10 relative">
               <div className="absolute w-[250px] h-[250px] -top-[150px] left-1/2 rounded-full bg-gradient-to-r from-[#f7e1da] via-[#ff7800] to-[#ffb450] opacity-50 blur-[150px]"></div>
             <div className="flex flex-col items-center">
                     {/* Left Content */}
@@ -15,7 +15,7 @@ const ExpBanner = () => {
                                     Discover modern landing pages
                                 </div>
                         <h2 className="text-5xl text-center lg:text-6xl font-bold tracking-tight text-white">
-                        UNLOCK YOUR AI
+                        EXPLORE WORLD CLASS<br/> DESIGN INSPIRATION
 
                         </h2>
 

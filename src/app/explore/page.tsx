@@ -320,10 +320,10 @@ const handleCopy = async (id: number, prompt: string) => {
             <div className="container mx-auto px-4 py-10 relative">
                     
 
-                      {/* <ExpBanner/> */}
+                      <ExpBanner/>
                      
 
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center justify-center gap-5">
 
                     {/* Search */}
                     <div className="relative w-full lg:w-162.5">
@@ -335,7 +335,7 @@ const handleCopy = async (id: number, prompt: string) => {
                         <input
                         type="text"
                         placeholder="Search designs, categories, keywords..."
-                        className="w-full h-16 pl-14 pr-20 rounded-2xl
+                        className="w-full h-16 pl-14 pr-20 rounded-full
                         bg-[#0d0d0d]
                         border border-zinc-800
                         text-white
@@ -354,13 +354,13 @@ const handleCopy = async (id: number, prompt: string) => {
                      {/* sort */}
                     <div className="flex items-center gap-4">
                         <span className="text-zinc-400">Sort by:</span>
-                        <select className="bg-[#0d0d0d] w-[200px] text-white border border-zinc-800                         focus:outline-none focus:border-orange-500 px-5 py-2 rounded-xl">
-                            <option>Popular</option>
-                            <option>Latest</option>
-                            <option>Free</option>
-                            <option>Premium</option>
-                            <option selected>Mixed</option>
-                        </select>
+                              <select className="bg-[#0d0d0d] w-[150px] text-white border border-zinc-800 focus:outline-none focus:border-orange-500 px-5 py-2 rounded-full">
+          <option>Popular</option>
+          <option>Latest</option>
+          <option>Free</option>
+          <option>Premium</option>
+          <option>Mixed</option>
+        </select>
                     </div>
                       </div>
 
@@ -369,12 +369,12 @@ const handleCopy = async (id: number, prompt: string) => {
                     {/* categories */}
                     <div>
 
-                    <div className="py-8 flex items-center gap-4">
+                    <div className="py-8 flex flex-wrap justify-center gap-4">
                        {
                         categories.map((category) => <>
                          <button 
                             id={`${category.id}`}
-                            className={`px-5 py-2 rounded-xl transition-all ${
+                            className={`px-5 py-2 rounded-full transition-all ${
                                 selectedCategory === category.name
                                     ? "bg-[#ff6f001c] text-white border border-[#ff6f0034]"
                                     : "bg-[#0d0d0d] text-white border border-zinc-800 hover:border-                                     [#ff6f0034] hover:bg-[#ff6f001c]"
