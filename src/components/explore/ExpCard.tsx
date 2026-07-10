@@ -1,40 +1,37 @@
 import { CopyIcon } from "lucide-react";
 import { ProjectM } from "./ExpModal";
+import GlassBadge from "../home/allData/GlassBadge";
+import LikeBadge from "../home/allData/LikeBadge";
 
 interface ExpCardProps {
     project: ProjectM;
-    copied: number | null;
-
-    setSelectedProject: (
-        project: ProjectM | null
-    ) => void;
-
-    handleCopy: (
-        id: number,
-        prompt: string
-    ) => Promise<void>;
+   
 }
 
-const ExpCard = ({ project, setSelectedProject, handleCopy, copied }: ExpCardProps) => {
+const ExpCard = ({ project}: ExpCardProps) => {
     return (
         <div
                                 key={project.id}
-                                onClick={() => setSelectedProject(project)}
+                             
                                 className="
+                                relative
                                     group
                                     cursor-pointer
                                     rounded-3xl
                                     overflow-hidden
                                     border border-zinc-800
                                     bg-[#0a0a0a]
-                                    hover:border-[#ff6f0030]
+                                    hover:border-b-[#9a77f3]
+                                    hover:shadow-2xl
+                                    hover:backdrop-blur-2xl
                                     transition-all
                                     duration-300
                                     hover:-translate-y-1
                                 "
                                 >
+                               
                                 {/* Video */}
-                                <div className="relative h-[220px] overflow-hidden">
+                                <div className="relative h-[280px] rounded-b-2xl overflow-hidden">
                                     <video
                                     src={project.image}
                                     autoPlay
@@ -48,7 +45,7 @@ const ExpCard = ({ project, setSelectedProject, handleCopy, copied }: ExpCardPro
                                         object-top
                                         transition-transform
                                         duration-500
-                                        group-hover:scale-105
+                                       
                                     "
                                     />
 
@@ -58,29 +55,18 @@ const ExpCard = ({ project, setSelectedProject, handleCopy, copied }: ExpCardPro
 
                                 {/* Content */}
                                 <div className="p-5">
-                                    <div className="flex items-center justify-between mb-3">
-                                    <div>
+                                  
+                                    <div className="flex justify-between items-center">
                                         <h3 className="text-lg mb-3 font-semibold text-white">
                                         {project.title}
                                     </h3>
 
-                                    <span className="text-xs px-3 py-1 rounded-full bg-[#ff6f0015] border border-[#ff6f0030] text-orange-400">
-                                        {project.category}
-                                    </span>
+                                  
+                                    <GlassBadge text="Hero"/>
+                                  
                                     </div>
-                                   <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleCopy(project.id, project.prompt);
-                                    }}
-                                    className="rounded-xl border border-white/10 bg-white/10 p-3 backdrop-blur-md"
-                                    >
-                                    <CopyIcon
-                                        size={16}
-                                        className={copied === project.id ? "text-green-400" : "text-white"}
-                                    />
-                                    </button>
-                                    </div>
+                                  
+                                   
 
                                    
 

@@ -390,11 +390,7 @@ const handleCopy = async (id: number, prompt: string) => {
                     </div>
                     {/* cards */}
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 py-5">
-                        {
-                            projects.map((project) => <>
-                              <ExpCard project={project} setSelectedProject={setSelectedProject} handleCopy={handleCopy} copied={copied}/>
-                            </>)
-                        }
+                       {/*  */}
 
                     </div>
                        <div className="flex justify-center w-full">

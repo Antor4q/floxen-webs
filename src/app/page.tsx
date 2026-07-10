@@ -1,6 +1,10 @@
+import ContentSection from "../components/home/allData/ContentSection";
 import Banner from "../components/home/Banner";
 
-import Featured from "../components/home/Featured";
+
+import Hero from "../components/home/Hero";
+import HeroBackground from "../components/home/HeroBackground";
+import { WebGLShader } from "../components/home/WebGLShader";
 import Cta from "../components/shared/Cta";
 import FeaturedCollection from "../components/shared/FeaturedCollection";
 import Header from "../components/shared/Header";
@@ -10,55 +14,26 @@ import Header from "../components/shared/Header";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#050505]">
-      {/* Grid Background */}
-      <div className="absolute inset-0 opacity-[0.05]">
-        <div
-          className="h-full w-full"
-          style={{
-            backgroundImage: `
-              linear-gradient(
-                to right,
-                rgba(255,255,255,0.04) 1px,
-                transparent 1px
-              ),
-              linear-gradient(
-                to bottom,
-                rgba(255,255,255,0.04) 1px,
-                transparent 1px
-              )
-            `,
-            backgroundSize: "70px 70px",
-          }}
-        />
-      </div>
+    // bg-[#050505]
+    <main className="relative overflow-hidden bg-[#040006]">
+     
+    
+   
 
-      {/* Top Center Warm Gradient Glow */}
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] blur-[140px] opacity-[0.18]"
-        style={{
-          background: `
-            radial-gradient(
-              circle,
-              rgba(255, 60, 0, 0.45) 0%,
-              rgba(255, 120, 0, 0.28) 45%,
-              rgba(255, 180, 80, 0.12) 75%,
-              transparent 100%
-            )
-          `,
-        }}
-      />
+  <div className="relative h-[550px] overflow-hidden bg-[#040006]">
+    <WebGLShader />
 
-      <div className="relative z-10">
+    <div className="relative z-10">
         <Header />
-        <Banner />
-        <Featured/>
-        <FeaturedCollection/>
-        {/* <Cta/> */}
-        
-       
-      
-      </div>
+        <Hero />
+    </div>
+</div>
+ {/* other components */}
+ <div className="bg-[#020202]">
+  <ContentSection/>
+ </div>
+
     </main>
+    
   );
 }

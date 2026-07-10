@@ -5,6 +5,7 @@ import { Menu } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 import logo from "../../../public/logo.png"
+import GlassButton from "../home/GlassButton";
 
 const Header = () => {
     const [open, setOpen] = useState(false);
@@ -14,7 +15,7 @@ const Header = () => {
         <div className="backdrop-blur-xl rounded-2xl px-4 sm:px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
-            <Image alt="logo" src={logo} width={150} height={50}/>
+            <Image alt="logo" src={logo} width={200} height={100}/>
           </Link>
 
           {/* Desktop Menu */}
@@ -27,22 +28,14 @@ const Header = () => {
               Explore
             </Link>
 
-            <Link href="#" className="hover:text-white transition">
-              Templates
+            <Link href="cursor" className="hover:text-white transition">
+              Cursor
             </Link>
           </nav>
 
           {/* Desktop Button */}
           {/* new added header */}
-         <button
-  className="
-    px-8 py-4 rounded-full
-    text-white font-semibold
-    bg-[linear-gradient(to_bottom,_#ffbe50_0%,_#ff8a00_20%,_#ff3c00_45%,_#7a0000_70%,_#7a0000_100%)]
-  "
->
-  Get Started
-</button>
+        <GlassButton/>
 
           {/* Mobile Menu Button */}
           <button

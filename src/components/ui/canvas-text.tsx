@@ -30,7 +30,7 @@ export function CanvasText({
   text,
   className = "",
   backgroundClassName = "bg-white dark:bg-neutral-950",
-  colors = ["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#ffeaa7", "#dfe6e9"],
+  colors = ["#8762F5","#A77DF3", "#C0AFFE", "#A77DF3", "#8762F5"],
   animationDuration = 5,
   lineWidth = 1.5,
   lineGap = 10,
