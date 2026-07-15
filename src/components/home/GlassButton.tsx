@@ -37,6 +37,7 @@
 
 
 "use client";
+import { motion } from "framer-motion";
 
 import { Sparkles } from "lucide-react";
 import { useState } from "react";
@@ -157,8 +158,9 @@ const GlassButton = () => {
           items-center
           justify-center
           rounded-full
-          bg-white
-          text-black
+          bg-white/40
+          text-white
+          
           shadow-lg
         "
       >

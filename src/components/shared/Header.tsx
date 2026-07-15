@@ -10,7 +10,7 @@ import GlassButton from "../home/GlassButton";
 const Header = () => {
     const [open, setOpen] = useState(false);
     return (
-       <header className="w-full px-10  pt-5">
+       <header className="w-full px-10  pt-5 bg-transparent fixed z-50">
       <div className="">
         <div className="backdrop-blur-xl rounded-2xl px-4 sm:px-6 py-4 flex items-center justify-between">
           {/* Logo */}
@@ -20,17 +20,17 @@ const Header = () => {
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-10 text-sm text-zinc-300">
-            <Link href="#" className="hover:text-white transition">
-              Feed
+            <Link href="/" className="hover:text-white transition">
+              Home
             </Link>
 
-            <Link href="/explore" className="hover:text-white transition">
-              Explore
+            <Link href="/about" className="hover:text-white transition">
+              About
+            </Link>
+            <Link href="/contact" className="hover:text-white transition">
+              Contact
             </Link>
 
-            <Link href="cursor" className="hover:text-white transition">
-              Cursor
-            </Link>
           </nav>
 
           {/* Desktop Button */}
