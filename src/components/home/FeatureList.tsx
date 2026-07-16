@@ -39,12 +39,7 @@ export default function FeatureList() {
               {/* Icon */}
               <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl">
 
-               {/* <div
-  className="absolute -top-5 -left-5 h-14 w-14 rounded-full blur-2xl opacity-70"
-  style={{
-    background: "rgba(168, 85, 247, 0.45)",
-  }}
-/> */}
+   
 <div
   className="absolute inset-0 rounded-2xl pointer-events-none"
   style={{

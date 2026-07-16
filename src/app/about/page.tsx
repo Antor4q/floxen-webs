@@ -1,23 +1,26 @@
 
 
 import AboutBanner from "@/src/components/about/AboutBanner";
-import Details from "./Details";
-import HowItWorks from "./howItWorks/HowItWorks";
-import CLHowItWorks from "./howItWorks/CLHowItWorks";
+import Details from "../../components/about/Details";
+
+import CLHowItWorks from "../../components/about/howItWorks/CLHowItWorks";
+import AboutCta from "@/src/components/about/AboutCta";
+import HowIt from "@/src/components/about/howItWorks/HowIt";
 
 
 const About = () => {
 
 
     return (
-        <div className="bg-[#040006] ">
+        <div className="bg-[#020202] ">
 
-           <div className="px-10 pt-40 pb-10 relative container mx-auto">
+           <div className="px-10 pt-40 pb-10 relative max-w-360 mx-auto">
                <AboutBanner/>
                <Details/>
-               {/* <HowItWorks/> */}
+              <HowIt/>
                {/* claude */}
-               <CLHowItWorks/>
+               {/* <CLHowItWorks/> */}
+               <AboutCta/>
            </div>
         </div>
     );

@@ -95,82 +95,82 @@ function MobileSectionHeader() {
   );
 }
 
-interface StepIconProps {
-  step: HowItWorksStep;
-  active: boolean;
-}
+// interface StepIconProps {
+//   step: HowItWorksStep;
+//   active: boolean;
+// }
 
-function StepIcon({ step, active }: StepIconProps) {
-  const Icon = step.icon;
-  return (
-    <motion.div
-      className="relative flex h-16 w-16 items-center justify-center rounded-full border backdrop-blur-md transition-colors duration-500 md:h-20 md:w-20"
-      style={{
-        borderColor: active ? ACCENT : "rgba(255,255,255,0.12)",
-        backgroundColor: active ? "rgba(139,92,246,0.12)" : "rgba(255,255,255,0.03)",
-      }}
-      animate={
-        active
-          ? { scale: [1, 1.06, 1], boxShadow: `0 0 42px rgba(139,92,246,0.45)` }
-          : { scale: 1, boxShadow: "0 0 0 rgba(139,92,246,0)" }
-      }
-      transition={
-        active
-          ? { scale: { duration: 2.2, repeat: Infinity, ease: "easeInOut" }, boxShadow: { duration: 0.5 } }
-          : { duration: 0.5 }
-      }
-    >
-      <Icon
-        className="h-6 w-6 transition-colors duration-500 md:h-7 md:w-7"
-        style={{ color: active ? ACCENT : "rgba(255,255,255,0.4)" }}
-        strokeWidth={1.75}
-      />
-    </motion.div>
-  );
-}
+// function StepIcon({ step, active }: StepIconProps) {
+//   const Icon = step.icon;
+//   return (
+//     <motion.div
+//       className="relative flex h-16 w-16 items-center justify-center rounded-full border backdrop-blur-md transition-colors duration-500 md:h-20 md:w-20"
+//       style={{
+//         borderColor: active ? ACCENT : "rgba(255,255,255,0.12)",
+//         backgroundColor: active ? "rgba(139,92,246,0.12)" : "rgba(255,255,255,0.03)",
+//       }}
+//       animate={
+//         active
+//           ? { scale: [1, 1.06, 1], boxShadow: `0 0 42px rgba(139,92,246,0.45)` }
+//           : { scale: 1, boxShadow: "0 0 0 rgba(139,92,246,0)" }
+//       }
+//       transition={
+//         active
+//           ? { scale: { duration: 2.2, repeat: Infinity, ease: "easeInOut" }, boxShadow: { duration: 0.5 } }
+//           : { duration: 0.5 }
+//       }
+//     >
+//       <Icon
+//         className="h-6 w-6 transition-colors duration-500 md:h-7 md:w-7"
+//         style={{ color: active ? ACCENT : "rgba(255,255,255,0.4)" }}
+//         strokeWidth={1.75}
+//       />
+//     </motion.div>
+//   );
+// }
 
-interface TimelineProps {
-  progress: import("framer-motion").MotionValue<number>;
-  activeStep: HowItWorksStep;
-}
+// interface TimelineProps {
+//   progress: import("framer-motion").MotionValue<number>;
+//   activeStep: HowItWorksStep;
+// }
 
-function StickyTimeline({ progress, activeStep }: TimelineProps) {
-  const scaleY = useTransform(progress, [0, 1], [0, 1]);
+// function StickyTimeline({ progress, activeStep }: TimelineProps) {
+//   const scaleY = useTransform(progress, [0, 1], [0, 1]);
 
-  return (
-    <div
-      className="relative hidden flex-shrink-0 items-center justify-center md:flex"
-      style={{ height: TIMELINE_HEIGHT_DESKTOP, width: 120 }}
-    >
-      {/* base gray line */}
-      <div className="absolute top-0 h-full w-px rounded-full bg-white/10" />
-      {/* purple progress line, synced to scroll */}
-      <motion.div
-        className="absolute top-0 w-px origin-top rounded-full"
-        style={{
-          height: "100%",
-          scaleY,
-          backgroundColor: ACCENT,
-          boxShadow: `0 0 16px ${ACCENT}`,
-        }}
-      />
-      {/* active step marker */}
-      <div className="relative z-10">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeStep.id}
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.4, ease: EASE_OUT }}
-          >
-            <StepIcon step={activeStep} active />
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
+//   return (
+//     <div
+//       className="relative hidden flex-shrink-0 items-center justify-center md:flex"
+//       style={{ height: TIMELINE_HEIGHT_DESKTOP, width: 120 }}
+//     >
+//       {/* base gray line */}
+//       <div className="absolute top-0 h-full w-px rounded-full bg-white/10" />
+//       {/* purple progress line, synced to scroll */}
+//       <motion.div
+//         className="absolute top-0 w-px origin-top rounded-full"
+//         style={{
+//           height: "100%",
+//           scaleY,
+//           backgroundColor: ACCENT,
+//           boxShadow: `0 0 16px ${ACCENT}`,
+//         }}
+//       />
+//       {/* active step marker */}
+//       <div className="relative z-10">
+//         <AnimatePresence mode="wait">
+//           <motion.div
+//             key={activeStep.id}
+//             initial={{ opacity: 0, scale: 0.85 }}
+//             animate={{ opacity: 1, scale: 1 }}
+//             exit={{ opacity: 0, scale: 0.85 }}
+//             transition={{ duration: 0.4, ease: EASE_OUT }}
+//           >
+//             <StepIcon step={activeStep} active />
+//           </motion.div>
+//         </AnimatePresence>
+//       </div>
+//     </div>
+//   );
+// }
 
 interface TextBlockProps {
   step: HowItWorksStep;
@@ -304,7 +304,7 @@ function DesktopExperience() {
             </div>
           </div>
 
-          <StickyTimeline progress={scrollYProgress} activeStep={activeStep} />
+          {/* <StickyTimeline progress={scrollYProgress} activeStep={activeStep} /> */}
 
           <div className="flex w-[42%] justify-start">
             <div className="w-full max-w-md">
@@ -341,9 +341,9 @@ function MobileExperience() {
             transition={{ duration: 0.6, ease: EASE_OUT }}
             className="relative flex gap-6"
           >
-            <div className="relative z-10 flex-shrink-0">
+            {/* <div className="relative z-10 flex-shrink-0">
               <StepIcon step={step} active />
-            </div>
+            </div> */}
             <div className="flex-1 pt-1">
               <span className="text-xs font-semibold tracking-[0.2em]" style={{ color: ACCENT }}>
                 {step.step}
