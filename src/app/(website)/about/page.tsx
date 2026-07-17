@@ -1,11 +1,12 @@
 
 
 import AboutBanner from "@/src/components/about/AboutBanner";
-import Details from "../../components/about/Details";
+import Details from "../../../components/about/Details";
 
-import CLHowItWorks from "../../components/about/howItWorks/CLHowItWorks";
+import CLHowItWorks from "../../../components/about/howItWorks/CLHowItWorks";
 import AboutCta from "@/src/components/about/AboutCta";
 import HowIt from "@/src/components/about/howItWorks/HowIt";
+import WhyWe from "@/src/components/about/WhyWe";
 
 
 const About = () => {
@@ -18,6 +19,7 @@ const About = () => {
                <AboutBanner/>
                <Details/>
               <HowIt/>
+              <WhyWe/>
                {/* claude */}
                {/* <CLHowItWorks/> */}
                <AboutCta/>

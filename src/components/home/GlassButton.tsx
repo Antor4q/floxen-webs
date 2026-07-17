@@ -40,6 +40,7 @@
 import { motion } from "framer-motion";
 
 import { Sparkles } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 const GlassButton = () => {
@@ -74,6 +75,7 @@ const GlassButton = () => {
   };
 
   return (
+   <Link href="/dashboard">
     <button
       onMouseMove={handleMove}
       onMouseLeave={handleLeave}
@@ -95,6 +97,7 @@ const GlassButton = () => {
         backdrop-blur-xl
         shadow-[0_8px_32px_rgba(0,0,0,0.25)]
       "
+      
     >
       {/* Base Glass */}
       <div className="absolute inset-0 bg-white/[0.04]" />
@@ -167,6 +170,7 @@ const GlassButton = () => {
         <Sparkles size={16} />
       </div>
     </button>
+   </Link>
   );
 };
 
