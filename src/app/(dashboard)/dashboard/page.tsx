@@ -1,8 +1,8 @@
-import Chart from "@/src/components/dashboard/navigationDash/overview/Chart";
-import RevenueCard from "@/src/components/dashboard/navigationDash/overview/RevenueCard";
-import StatsCards from "@/src/components/dashboard/navigationDash/overview/StatsCards";
-import UserChart from "@/src/components/dashboard/navigationDash/overview/UserChart";
-import VisitorSources from "@/src/components/dashboard/navigationDash/overview/Visitorsources";
+import Chart from "@/src/components/dashboard/overview/Chart";
+import RevenueCard from "@/src/components/dashboard/overview/RevenueCard";
+import StatsCards from "@/src/components/dashboard/overview/StatsCards";
+import UserChart from "@/src/components/dashboard/overview/UserChart";
+import VisitorSources from "@/src/components/dashboard/overview/Visitorsources";
 
 const Dashboard = () => {
     return (

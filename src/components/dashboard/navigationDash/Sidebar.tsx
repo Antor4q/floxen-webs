@@ -28,11 +28,11 @@ const menuItems = [
     href: "/dashboard/inspirations",
     icon: Sparkles,
   },
-  {
-    title: "Prompts",
-    href: "/dashboard/prompts",
-    icon: FileText,
-  },
+  // {
+  //   title: "Prompts",
+  //   href: "/dashboard/prompts",
+  //   icon: FileText,
+  // },
   {
     title: "Categories",
     href: "/dashboard/categories",
@@ -94,9 +94,11 @@ export default function Sidebar() {
           {menuItems.map((item) => {
             const Icon = item.icon;
 
-            const active =
-              pathname === item.href ||
-              pathname.startsWith(item.href + "/");
+           const active =
+  item.href === "/dashboard"
+    ? pathname === item.href
+    : pathname === item.href ||
+      pathname.startsWith(item.href + "/");
 
             return (
               <Link
