@@ -2,17 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import user from "../../../../public/flow.png"
 import {
   LayoutDashboard,
   Sparkles,
-  FileText,
+ 
   FolderOpen,
   Users,
   CreditCard,
   BarChart3,
   Settings,
   LogOut,
-  Crown,
+ 
 } from "lucide-react";
 import logo from "../../../../public/logo.png"
 import Image from "next/image";
@@ -66,7 +67,7 @@ export default function Sidebar() {
   return (
     <aside
       className="
-      w-[290px]
+      w-72.5
       h-screen
       sticky
       top-0
@@ -159,7 +160,7 @@ export default function Sidebar() {
       {/* Bottom */}
       <div className="space-y-5">
         {/* Upgrade Card */}
-        <div
+        {/* <div
           className="
           rounded-3xl
           border
@@ -212,7 +213,7 @@ export default function Sidebar() {
           >
             Upgrade Now
           </button>
-        </div>
+        </div> */}
 
         {/* User */}
         <div
@@ -223,13 +224,15 @@ export default function Sidebar() {
           rounded-2xl
           border
           border-white/10
-          bg-white/[0.03]
+          bg-white/3
           p-3
         "
         >
           <div className="flex items-center gap-3">
-            <img
-              src="https://i.pravatar.cc/100"
+            <Image
+             height={44}
+             width={44}
+              src={user}
               alt="avatar"
               className="h-11 w-11 rounded-full object-cover"
             />

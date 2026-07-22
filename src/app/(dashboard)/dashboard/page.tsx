@@ -16,7 +16,7 @@ const Dashboard = () => {
                      <UserChart/>
                 </div>
            </div> */}
-           <div className="grid grid-cols-5 gap-10 my-16">
+           <div className="grid grid-cols-5 gap-8 my-8">
                 
                 <div className="col-span-3">
                     <RevenueCard/>

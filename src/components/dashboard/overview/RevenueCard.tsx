@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React from "react";
+
 import {
   AreaChart,
   Area,
@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import {
   DollarSign,
-  ChevronDown,
+  
   ArrowUpRight,
   ArrowDownRight,
   ShoppingBag,
@@ -82,8 +82,12 @@ function formatK(n: number) {
 
 /** Custom dot with a floating value label above the point */
 function LabeledDot(props: any) {
-  const { cx, cy, value, index } = props;
+  const { cx, cy, payload } = props;
+
   if (cx == null || cy == null) return null;
+
+  const value = payload?.value ?? 0;
+
   return (
     <g>
       <text
@@ -94,7 +98,15 @@ function LabeledDot(props: any) {
       >
         {formatK(value)}
       </text>
-      <circle cx={cx} cy={cy} r={4} fill="#22c55e" stroke="#0b0f1a" strokeWidth={2} />
+
+      <circle
+        cx={cx}
+        cy={cy}
+        r={4}
+        fill="#22c55e"
+        stroke="#0b0f1a"
+        strokeWidth={2}
+      />
     </g>
   );
 }
@@ -141,12 +153,12 @@ function MiniBars() {
 
 export default function RevenueCard() {
   return (
-    <div className="flex items-center justify-center p-6">
+    <div className="flex items-center justify-center pt-5">
       <div className="w-full rounded-3xl border border-white/5 bg-[#0b0f1a] p-5">
         {/* Header */}
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-linear-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20">
               <DollarSign className="h-5 w-5 text-white" strokeWidth={2.5} />
             </div>
             <div>
@@ -156,10 +168,10 @@ export default function RevenueCard() {
               </p>
             </div>
           </div>
-          <button className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70 transition hover:bg-white/10">
+          {/* <button className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70 transition hover:bg-white/10">
             This Month
             <ChevronDown className="h-3.5 w-3.5" />
-          </button>
+          </button> */}
         </div>
 
         {/* Hero panel */}
@@ -186,7 +198,7 @@ export default function RevenueCard() {
             return (
               <div
                 key={s.label}
-                className="rounded-2xl border border-white/5 bg-white/[0.03] p-3.5"
+                className="rounded-2xl border border-white/5 bg-white/3 p-3.5"
               >
                 <div className="flex items-center justify-between">
                   <p className="text-[11px] text-white/40">{s.label}</p>
@@ -222,10 +234,10 @@ export default function RevenueCard() {
             <h3 className="text-sm font-medium text-white/80">
               Revenue Over Time
             </h3>
-            <button className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] text-white/60 transition hover:bg-white/10">
+            {/* <button className="flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] text-white/60 transition hover:bg-white/10">
               This Month
               <ChevronDown className="h-3 w-3" />
-            </button>
+            </button> */}
           </div>
 
           <div className="mt-3 h-56 w-full">
@@ -257,7 +269,12 @@ export default function RevenueCard() {
                   }}
                   labelStyle={{ color: "rgba(255,255,255,0.6)" }}
                   itemStyle={{ color: "#22c55e" }}
-                  formatter={(v) => [formatK(Number(v)), "Revenue"]}
+                   formatter={(value) => {
+    const num =
+      typeof value === "number" ? value : parseFloat(String(value));
+
+    return [isNaN(num) ? "$0" : `$${num.toLocaleString()}`, "Revenue"];
+  }}
                 />
                 <Area
                   type="monotone"

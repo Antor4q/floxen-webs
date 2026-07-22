@@ -109,7 +109,7 @@ function CompositionBar() {
 
 export default function VisitorSources() {
   return (
-    <div className="flex items-center justify-center p-6">
+    <div className="flex items-center justify-center pt-5">
       <div className="w-full rounded-3xl border border-white/5 bg-[#0b0f1a] p-5 pt-0">
         {/* Header */}
         {/* <div className="flex items-start justify-between">
