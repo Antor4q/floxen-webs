@@ -239,9 +239,9 @@ const CardsBar = () => {
         <div className="w-full h-full">
             <div className="grid grid-cols-4 gap-4">
                 {
-                            projects.map((project) => <>
-                              <ExpCard project={project}/>
-                            </>)
+                            projects.map((project) => 
+                              <ExpCard key={project.id} project={project}/>
+                            )
                         }
             </div>
         </div>

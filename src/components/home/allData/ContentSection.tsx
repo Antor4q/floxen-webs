@@ -4,10 +4,15 @@ import SidBar from "./SidBar";
 const ContentSection = () => {
     return (
         <div className="px-10 py-10 min-h-screen rounded-t-xl border-t-2 border-[#0c0a0d]">
-             {/* Badge */}
-      <span className="px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-xl text-zinc-400 text-sm mb-4">
-        MOTIONS DROPS EVERYDAY
-      </span>
+                {/* Badge */}
+<div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-400 backdrop-blur-xl">
+  <div className="relative flex h-3 w-3 items-center justify-center">
+    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-500/30"></span>
+    <span className="relative h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(168,85,247,0.9)]"></span>
+  </div>
+
+  <span>MOTIONS DROPS EVERYDAY</span>
+</div>
        <div className="flex justify-between">
 
             <h2 className="text-4xl my-3 leading-16 font-bold">Every prompt, in one place</h2>
