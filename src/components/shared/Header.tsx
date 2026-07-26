@@ -30,6 +30,12 @@ const Header = () => {
             <Link href="/contact" className="hover:text-white transition">
               Contact
             </Link>
+            <Link href="/signIn" className="hover:text-white transition">
+              SignIn
+            </Link>
+            <Link href="/signUp" className="hover:text-white transition">
+              SignUp
+            </Link>
 
           </nav>
 
