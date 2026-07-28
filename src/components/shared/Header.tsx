@@ -2,24 +2,72 @@
 
 import Link from "next/link";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import logo from "../../../public/logo.png"
+
+import logo from "../../../public/logo.png";
 import GlassButton from "../home/GlassButton";
 
 const Header = () => {
-    const [open, setOpen] = useState(false);
-    return (
-       <header className="w-full px-10  pt-5 bg-transparent fixed z-50">
-      <div className="">
-        <div className="backdrop-blur-xl rounded-2xl px-4 sm:px-6 py-4 flex items-center justify-between">
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 80);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <header className="fixed top-5 left-0 w-full z-50 px-10">
+      <div
+        className={`
+    duration-500
+    ease-[cubic-bezier(.22,1,.36,1)]
+    transition-[max-width,padding,background-color,backdrop-filter,box-shadow]
+
+    border
+
+    ${
+      scrolled
+        ? "max-w-[1020px] mx-auto rounded-full border-white/10 bg-black/55 backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,.45)]"
+        : "w-full border-transparent bg-transparent shadow-none"
+    }
+  `}
+      >
+        <div
+          className={`
+            flex items-center justify-between
+            transition-all duration-500
+            ${scrolled ? "h-16 px-8" : "h-20 px-0"}
+          `}
+        >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
-            <Image alt="logo" src={logo} width={200} height={100}/>
+            <Image
+              src={logo}
+              alt="Logo"
+              className={`
+                transition-all duration-500
+                
+              `}
+              width={200}
+              height={100}
+            />
           </Link>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:flex items-center gap-10 text-sm text-zinc-300">
+          <nav
+            className={`
+              hidden md:flex items-center text-sm text-zinc-300
+              transition-all duration-500
+              ${scrolled ? "gap-7" : "gap-10"}
+            `}
+          >
             <Link href="/" className="hover:text-white transition">
               Home
             </Link>
@@ -27,21 +75,30 @@ const Header = () => {
             <Link href="/about" className="hover:text-white transition">
               About
             </Link>
+
             <Link href="/contact" className="hover:text-white transition">
               Contact
             </Link>
+
             <Link href="/signIn" className="hover:text-white transition">
-              SignIn
-            </Link>
-            <Link href="/signUp" className="hover:text-white transition">
-              SignUp
+              Sign In
             </Link>
 
+            <Link href="/signUp" className="hover:text-white transition">
+              Sign Up
+            </Link>
           </nav>
 
           {/* Desktop Button */}
-          {/* new added header */}
-        <GlassButton/>
+          <div
+            className={`
+              hidden md:block
+              transition-all duration-500
+              ${scrolled ? "scale-90" : "scale-100"}
+            `}
+          >
+            <GlassButton />
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -54,19 +111,23 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {open && (
-          <div className="md:hidden mt-3 border border-white/10 bg-black/80 backdrop-blur-xl rounded-2xl p-5 flex flex-col gap-5 text-zinc-300">
-            <Link href="#">Feed</Link>
-            <Link href="#">Explore</Link>
-            <Link href="#">Templates</Link>
+          <div className="md:hidden mt-3 rounded-2xl border border-white/10 bg-black/80 p-5 backdrop-blur-xl">
+            <nav className="flex flex-col gap-5 text-zinc-300">
+              <Link href="/">Home</Link>
+              <Link href="/about">About</Link>
+              <Link href="/contact">Contact</Link>
+              <Link href="/signIn">Sign In</Link>
+              <Link href="/signUp">Sign Up</Link>
 
-            <button className="bg-gradient-to-r from-[#ff3c00] via-[#ff7800] to-[#ffb450] text-black font-semibold py-3 rounded-full mt-2">
-              Login
-            </button>
+              <div className="pt-2">
+                <GlassButton />
+              </div>
+            </nav>
           </div>
         )}
       </div>
     </header>
-    );
+  );
 };
 
 export default Header;
