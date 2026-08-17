@@ -17,15 +17,16 @@ const Hero = () => {
     <span className="relative h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(168,85,247,0.9)]"></span>
   </div>
 
-  <span>MOTIONS DROPS EVERYDAY</span>
+  <span>FRESH DESIGN, EVERYDAY</span>
 </div>
 
       {/* Heading */}
-    <h1 className="text-6xl leading-16 font-bold">
-             AI builds generic{" "}<br/>We make it 
+    <h1 className="text-6xl leading-16 font-bold text-white">
+             Make Your AI{" "}
+             <br/>Designs 
 
               <AuroraText className="ml-2" speed={1} colors={["#d0c3fe","#C0AFFE","#8762F5","#A77DF3"]}>
-                CINEMATIC
+                Remarkable 
               </AuroraText>{" "}
              
             </h1>
@@ -35,7 +36,7 @@ const Hero = () => {
    
       {/* Description */}
       <p className="max-w-2xl mt-4  text-zinc-400 text-sm sm:text-base lg:text-xl leading-relaxed px-2">
-       Copy a prompt, paste it into your AI, and launch a site<br/> that doesn`t look AI-made.
+       Grab a prompt, give it to your AI, and start creating websites <br/>that look and feel uniquely yours.
       </p>
      
 

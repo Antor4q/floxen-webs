@@ -148,7 +148,7 @@ const GlassButton = () => {
 
       {/* Content */}
       <span className="relative z-20 text-sm font-medium text-white">
-        Get unlimited access
+       Get Premium Access
       </span>
 
       <div

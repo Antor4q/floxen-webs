@@ -14,6 +14,12 @@ import { FcGoogle } from "react-icons/fc";
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
 
+  const handleForm = (e) => {
+  e.preventDefault()
+  
+  }
+
+
   return (
     <div className="w-full max-w-[520px] rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl">
       {/* Header */}

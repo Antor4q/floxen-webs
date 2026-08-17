@@ -76,16 +76,17 @@ const Header = () => {
               About
             </Link>
 
-            <Link href="/contact" className="hover:text-white transition">
-              Contact
-            </Link>
+           
 
             <Link href="/signIn" className="hover:text-white transition">
-              Sign In
+              Docs
             </Link>
 
             <Link href="/signUp" className="hover:text-white transition">
-              Sign Up
+              Affiliate
+            </Link>
+             <Link href="/contact" className="hover:text-white transition">
+              Contact
             </Link>
           </nav>
 

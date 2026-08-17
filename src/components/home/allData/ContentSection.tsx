@@ -11,11 +11,11 @@ const ContentSection = () => {
     <span className="relative h-2 w-2 rounded-full bg-violet-400 shadow-[0_0_8px_rgba(168,85,247,0.9)]"></span>
   </div>
 
-  <span>MOTIONS DROPS EVERYDAY</span>
+  <span>THE COMPLETE DROP</span>
 </div>
        <div className="flex justify-between">
 
-            <h2 className="text-4xl my-3 leading-16 font-bold">Every prompt, in one place</h2>
+            <h2 className="text-4xl my-3 text-zinc-400 leading-16 font-bold">One library. Endless possibilities.</h2>
                   {/* sort */}
                     <div className="flex items-center gap-4">
                         <span className="text-zinc-400">Sort by:</span>
