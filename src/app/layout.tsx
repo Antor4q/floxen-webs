@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ReduxProvider from "../redux/reduxProvider";
+
 // import ClientLayout from "../components/shared/ClientLayout";
 
 
@@ -31,7 +33,12 @@ export default function RootLayout({
     >
       <body className="selection:bg-violet-400 selection:text-white">
         {/* <ClientLayout> {children} </ClientLayout> */}
+      
+        <ReduxProvider>
+
         {children}
+        </ReduxProvider>
+       
       </body>
     </html>
   );
