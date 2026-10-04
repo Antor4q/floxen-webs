@@ -5,7 +5,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { UsageData } from "./page";
+import { UsageData } from "../../app/(website)/profile/page";
 
 
 

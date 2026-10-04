@@ -15,7 +15,7 @@ interface ResetPasswordPayload {
 }
 
 interface SetPasswordPayload {
-  token: string;
+ 
   password: string;
 }
 

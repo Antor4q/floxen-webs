@@ -1,48 +1,37 @@
+
 "use client";
 
 import Image from "next/image";
 import { useState } from "react";
 import {
   Copy,
-  Heart,
   KeyRound,
   Mail,
   Pencil,
-  ShieldCheck,
-  Trash2,
   Zap,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
-import profileAvatar from "../../../../public/logo.png";
-import SubscriptionSection from "./SubscriptionSection";
-import SecuritySection from "./SecuritySection";
-import FavouritesTab from "./FavouritesTab";
-import AffiliateTab from "./AffiliateTab";
-import AccountModals from "./AccountModals";
+import SubscriptionSection from "../../../components/profile/SubscriptionSection";
+import SecuritySection from "../../../components/profile/SecuritySection";
+import FavouritesTab from "../../../components/profile/FavouritesTab";
+import AffiliateTab from "../../../components/profile/AffiliateTab";
+import AccountModals from "../../../components/profile/AccountModals";
 
-
-type PlanType = "FREE" | "PREMIUM";
-
-export interface ProfileData {
-  name: string;
-  email: string;
-  picture: string;
-  favourites: number;
-  plan: PlanType;
-  authProvider: "google" | "credentials";
-  hasPassword: boolean;
-  memberSince: string;
-}
+import { RootState } from "@/src/redux/store";
 
 export interface UsageData {
   prompts: {
     used: number;
     limit: number;
   };
+
   sourceDownloads: {
     used: number;
     limit: number;
   };
+
   videoDownloads: {
     used: number;
     limit: number;
@@ -50,38 +39,55 @@ export interface UsageData {
 }
 
 const ProfilePage = () => {
+  const router = useRouter();
+
   // --------------------------------------------------
-  // STATIC DATA FOR NOW
-  // Later replace with Redux/API data
+  // USER FROM REDUX
   // --------------------------------------------------
 
-  const profileData: ProfileData = {
-    name: "Ahmed Antor",
-    email: "tariquelislam2015@gmail.com",
-    picture: profileAvatar.src,
-    favourites: 12,
+  const { user } = useSelector(
+    (state: RootState) => state.user
+  );
 
-    plan: "PREMIUM",
+  console.log("user data from profile page", user);
 
-    authProvider: "google",
-    hasPassword: false,
+  const isPremium = user?.plan === "PREMIUM";
 
-    memberSince: "September 2026",
-  };
+  // --------------------------------------------------
+  // PASSWORD
+  // --------------------------------------------------
+  // Only Google provider exists:
+  //     => Set Password
+  //
+  // Credentials exists:
+  //     => Change Password
+  //
+  // Google + Credentials:
+  //     => Change Password
+  // --------------------------------------------------
 
-  const isPremium = profileData.plan === "PREMIUM";
+  const isGoogleOnly =
+    user?.auths?.length === 1 &&
+    user.auths[0]?.provider === "google";
+
+  const hasPassword = !isGoogleOnly;
+
+  // --------------------------------------------------
+  // TABS
+  // --------------------------------------------------
 
   const [activeTab, setActiveTab] = useState<
     "overview" | "favourites" | "affiliate"
   >("overview");
 
-  const [showDeleteModal, setShowDeleteModal] =
-    useState(false);
-
-  const [showPasswordModal, setShowPasswordModal] =
-    useState(false);
+  // --------------------------------------------------
+  // MODALS
+  // --------------------------------------------------
 
   const [showEditModal, setShowEditModal] =
+    useState(false);
+
+  const [showDeleteModal, setShowDeleteModal] =
     useState(false);
 
   // --------------------------------------------------
@@ -100,9 +106,34 @@ const ProfilePage = () => {
     },
 
     videoDownloads: {
-      used: isPremium ? 0 : 0,
+      used: 0,
       limit: isPremium ? 3 : 0,
     },
+  };
+
+  // --------------------------------------------------
+  // PASSWORD
+  // --------------------------------------------------
+
+  const handlePasswordClick = () => {
+    router.push("/password");
+  };
+
+  // --------------------------------------------------
+  // COPY EMAIL
+  // --------------------------------------------------
+
+  const handleCopyEmail = async () => {
+    if (!user?.email) return;
+
+    try {
+      await navigator.clipboard.writeText(user.email);
+    } catch (error) {
+      console.error(
+        "Failed to copy email:",
+        error
+      );
+    }
   };
 
   return (
@@ -113,20 +144,29 @@ const ProfilePage = () => {
       {/* ================================================= */}
 
       <section className="mb-8">
+
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
           Your Account
         </p>
 
         <h1 className="text-4xl font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Welcome back, {profileData.name.split(" ")[0]}
+          Welcome back,{" "}
+          {user?.name?.split(" ")[0] || ""}
         </h1>
 
-        {/* Tabs */}
+        {/* ================================================= */}
+        {/* TABS */}
+        {/* ================================================= */}
+
         <div className="mt-8 flex items-center gap-7 border-b border-white/[0.08]">
 
           {/* Overview */}
+
           <button
-            onClick={() => setActiveTab("overview")}
+            type="button"
+            onClick={() =>
+              setActiveTab("overview")
+            }
             className={`relative pb-4 text-sm transition ${
               activeTab === "overview"
                 ? "text-white"
@@ -141,8 +181,12 @@ const ProfilePage = () => {
           </button>
 
           {/* Favourites */}
+
           <button
-            onClick={() => setActiveTab("favourites")}
+            type="button"
+            onClick={() =>
+              setActiveTab("favourites")
+            }
             className={`relative flex items-center gap-2 pb-4 text-sm transition ${
               activeTab === "favourites"
                 ? "text-white"
@@ -152,7 +196,7 @@ const ProfilePage = () => {
             Favourites
 
             <span className="text-xs text-zinc-600">
-              {profileData.favourites}
+              0
             </span>
 
             {activeTab === "favourites" && (
@@ -161,8 +205,12 @@ const ProfilePage = () => {
           </button>
 
           {/* Affiliate */}
+
           <button
-            onClick={() => setActiveTab("affiliate")}
+            type="button"
+            onClick={() =>
+              setActiveTab("affiliate")
+            }
             className={`relative flex items-center gap-2 pb-4 text-sm transition ${
               activeTab === "affiliate"
                 ? "text-white"
@@ -177,6 +225,7 @@ const ProfilePage = () => {
               <span className="absolute bottom-0 left-0 h-px w-full bg-white" />
             )}
           </button>
+
         </div>
       </section>
 
@@ -192,44 +241,69 @@ const ProfilePage = () => {
           {/* ================================================= */}
 
           <section className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-7 backdrop-blur-xl sm:p-8">
+
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
 
-              {/* User */}
+              {/* ================================================= */}
+              {/* USER */}
+              {/* ================================================= */}
+
               <div className="flex items-center gap-5">
 
                 {/* Avatar */}
+
                 <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05]">
-                  <Image
-                    src={profileData.picture}
-                    alt={profileData.name}
-                    fill
-                    className="object-cover"
-                  />
+
+                  {user?.picture ? (
+                    <Image
+                      src={user.picture}
+                      alt={
+                        user?.name || "photo"
+                      }
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-xl font-semibold text-zinc-400">
+                      {user?.name
+                        ?.charAt(0)
+                        ?.toUpperCase()}
+                    </div>
+                  )}
+
                 </div>
 
                 {/* Info */}
+
                 <div>
+
                   <h2 className="text-xl font-semibold text-white">
-                    {profileData.name}
+                    {user?.name}
                   </h2>
 
                   <div className="mt-1 flex items-center gap-2 text-sm text-zinc-500">
+
                     <Mail size={14} />
 
                     <span>
-                      {profileData.email}
+                      {user?.email}
                     </span>
 
                     <button
                       type="button"
+                      onClick={
+                        handleCopyEmail
+                      }
                       className="transition hover:text-white"
                       title="Copy email"
                     >
                       <Copy size={13} />
                     </button>
+
                   </div>
 
                   {/* Badges */}
+
                   <div className="mt-3 flex flex-wrap items-center gap-2">
 
                     <span
@@ -245,46 +319,67 @@ const ProfilePage = () => {
                     </span>
 
                     <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] text-zinc-500">
-                      {profileData.favourites} favourites
+                      0 favourites
                     </span>
 
                   </div>
+
                 </div>
+
               </div>
 
-              {/* Profile Actions */}
+              {/* ================================================= */}
+              {/* PROFILE ACTIONS */}
+              {/* ================================================= */}
+
               <div className="flex flex-wrap gap-2">
+
+                {/* Edit Profile */}
 
                 <button
                   type="button"
-                  onClick={() => setShowEditModal(true)}
+                  onClick={() =>
+                    setShowEditModal(true)
+                  }
                   className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
                 >
                   <Pencil size={14} />
+
                   Edit Profile
                 </button>
 
+                {/* Password */}
+
                 <button
                   type="button"
-                  onClick={() => setShowPasswordModal(true)}
+                  onClick={
+                    handlePasswordClick
+                  }
                   className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
                 >
                   <KeyRound size={14} />
 
-                  {profileData.hasPassword
+                  {hasPassword
                     ? "Change Password"
                     : "Set Password"}
                 </button>
 
               </div>
+
             </div>
 
-            {/* Member info */}
+            {/* ================================================= */}
+            {/* MEMBER INFO */}
+            {/* ================================================= */}
+
             <div className="mt-7 border-t border-white/[0.06] pt-5">
+
               <p className="text-xs text-zinc-600">
-                Member since {profileData.memberSince}
+                Member since {455}
               </p>
+
             </div>
+
           </section>
 
           {/* ================================================= */}
@@ -300,15 +395,7 @@ const ProfilePage = () => {
           {/* SECURITY */}
           {/* ================================================= */}
 
-          <SecuritySection
-            profileData={profileData}
-            onPasswordClick={() =>
-              setShowPasswordModal(true)
-            }
-            onDeleteClick={() =>
-              setShowDeleteModal(true)
-            }
-          />
+          <SecuritySection />
 
         </div>
       )}
@@ -330,25 +417,26 @@ const ProfilePage = () => {
       )}
 
       {/* ================================================= */}
-      {/* MODALS */}
+      {/* ACCOUNT MODALS */}
       {/* ================================================= */}
 
-      <AccountModals
-        profileData={profileData}
-        showEditModal={showEditModal}
-        showPasswordModal={showPasswordModal}
-        showDeleteModal={showDeleteModal}
-        onCloseEdit={() => setShowEditModal(false)}
-        onClosePassword={() =>
-          setShowPasswordModal(false)
-        }
-        onCloseDelete={() =>
-          setShowDeleteModal(false)
-        }
-      />
+      {user && (
+        <AccountModals
+          user={user}
+          showEditModal={showEditModal}
+          showDeleteModal={showDeleteModal}
+          onCloseEdit={() =>
+            setShowEditModal(false)
+          }
+          onCloseDelete={() =>
+            setShowDeleteModal(false)
+          }
+        />
+      )}
 
     </main>
   );
 };
 
 export default ProfilePage;
+

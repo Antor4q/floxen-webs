@@ -7,13 +7,19 @@ export interface IAuthProvider {
   providerId: string;
 }
 
+export enum IPlan {
+  FREE = "FREE",
+  PREMIUM = "PREMIUM",
+}
 export interface IUser {
   _id?: string;
   name: string;
   email: string;
+  plan: IPlan;
+  password?:string;
+  authProvider?: "google"|"credentials";
   slug?: string;
-  phone?: string;
-  address?: string;
+  
   picture?: string;
   isDeleted?: boolean;
   isActive?: IsActive;

@@ -1,3 +1,5 @@
+"use client"
+import { RootState } from "@/src/redux/store";
 import {
   ChevronRight,
   KeyRound,
@@ -5,21 +7,19 @@ import {
   ShieldCheck,
   Trash2,
 } from "lucide-react";
+import { useSelector } from "react-redux";
 
-import { ProfileData } from "./page";
 
 
-interface SecuritySectionProps {
-  profileData: ProfileData;
-  onPasswordClick: () => void;
-  onDeleteClick: () => void;
-}
 
 const SecuritySection = ({
-  profileData,
-  onPasswordClick,
-  onDeleteClick,
-}: SecuritySectionProps) => {
+
+ 
+}) => {
+
+   const { user } = useSelector(
+      (state: RootState) => state.user
+    );
   return (
     <>
       {/* ================================================= */}
@@ -36,7 +36,7 @@ const SecuritySection = ({
 
           {/* Password */}
           <button
-            onClick={onPasswordClick}
+            // onClick={onPasswordClick}
             className="flex w-full items-center justify-between p-6 text-left transition hover:bg-white/[0.025]"
           >
 
@@ -49,13 +49,13 @@ const SecuritySection = ({
               <div>
 
                 <p className="text-sm font-medium text-white">
-                  {profileData.hasPassword
+                  {user?.password
                     ? "Change password"
                     : "Set password"}
                 </p>
 
                 <p className="mt-1 text-xs text-zinc-600">
-                  {profileData.hasPassword
+                  {user?.password
                     ? "Update your account password"
                     : "Add a password to sign in with email"}
                 </p>
@@ -89,7 +89,7 @@ const SecuritySection = ({
 
                 <p className="mt-1 text-xs text-zinc-600">
                   Connected with{" "}
-                  {profileData.authProvider ===
+                  {user?.authProvider ===
                   "google"
                     ? "Google"
                     : "Email & Password"}
@@ -99,7 +99,7 @@ const SecuritySection = ({
             </div>
 
             <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[10px] uppercase tracking-wide text-zinc-500">
-              {profileData.authProvider}
+              {user?.authProvider}
             </span>
 
           </div>
@@ -125,7 +125,7 @@ const SecuritySection = ({
 
           <button
             type="button"
-            onClick={onDeleteClick}
+            // onClick={onDeleteClick}
             className="flex w-fit items-center gap-2 text-sm text-zinc-600 underline-offset-4 transition hover:text-red-400 hover:underline"
           >
             <Trash2 size={14} />
