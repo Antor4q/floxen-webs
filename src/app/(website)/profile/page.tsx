@@ -1,7 +1,5 @@
-
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 import {
   Copy,
@@ -38,6 +36,21 @@ export interface UsageData {
   };
 }
 
+// Name theke first 2 ta character (uppercase)
+// 2+ word thakle prothom 2 word er prothom akkhor, na hole prothom 2 akkhor
+const getInitials = (name?: string) => {
+  if (!name || !name.trim()) return "U";
+
+  const parts = name.trim().split(/\s+/);
+
+  const initials =
+    parts.length > 1
+      ? Array.from(parts[0])[0] + Array.from(parts[1])[0]
+      : Array.from(parts[0]).slice(0, 2).join("");
+
+  return initials.toUpperCase();
+};
+
 const ProfilePage = () => {
   const router = useRouter();
 
@@ -45,11 +58,7 @@ const ProfilePage = () => {
   // USER FROM REDUX
   // --------------------------------------------------
 
-  const { user } = useSelector(
-    (state: RootState) => state.user
-  );
-
-  console.log("user data from profile page", user);
+  const { user } = useSelector((state: RootState) => state.user);
 
   const isPremium = user?.plan === "PREMIUM";
 
@@ -67,8 +76,7 @@ const ProfilePage = () => {
   // --------------------------------------------------
 
   const isGoogleOnly =
-    user?.auths?.length === 1 &&
-    user.auths[0]?.provider === "google";
+    user?.auths?.length === 1 && user.auths[0]?.provider === "google";
 
   const hasPassword = !isGoogleOnly;
 
@@ -84,11 +92,8 @@ const ProfilePage = () => {
   // MODALS
   // --------------------------------------------------
 
-  const [showEditModal, setShowEditModal] =
-    useState(false);
-
-  const [showDeleteModal, setShowDeleteModal] =
-    useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // --------------------------------------------------
   // STATIC USAGE DATA
@@ -129,29 +134,23 @@ const ProfilePage = () => {
     try {
       await navigator.clipboard.writeText(user.email);
     } catch (error) {
-      console.error(
-        "Failed to copy email:",
-        error
-      );
+      console.error("Failed to copy email:", error);
     }
   };
 
   return (
     <main className="relative mx-auto max-w-360 px-10 pt-40 pb-10">
-
       {/* ================================================= */}
       {/* PAGE HEADER */}
       {/* ================================================= */}
 
       <section className="mb-8">
-
         <p className="mb-3 text-xs font-medium uppercase tracking-[0.18em] text-zinc-500">
           Your Account
         </p>
 
         <h1 className="text-4xl font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Welcome back,{" "}
-          {user?.name?.split(" ")[0] || ""}
+          Welcome back, {user?.name?.split(" ")[0] || ""}
         </h1>
 
         {/* ================================================= */}
@@ -159,14 +158,10 @@ const ProfilePage = () => {
         {/* ================================================= */}
 
         <div className="mt-8 flex items-center gap-7 border-b border-white/[0.08]">
-
           {/* Overview */}
-
           <button
             type="button"
-            onClick={() =>
-              setActiveTab("overview")
-            }
+            onClick={() => setActiveTab("overview")}
             className={`relative pb-4 text-sm transition ${
               activeTab === "overview"
                 ? "text-white"
@@ -174,19 +169,15 @@ const ProfilePage = () => {
             }`}
           >
             Overview
-
             {activeTab === "overview" && (
               <span className="absolute bottom-0 left-0 h-px w-full bg-white" />
             )}
           </button>
 
           {/* Favourites */}
-
           <button
             type="button"
-            onClick={() =>
-              setActiveTab("favourites")
-            }
+            onClick={() => setActiveTab("favourites")}
             className={`relative flex items-center gap-2 pb-4 text-sm transition ${
               activeTab === "favourites"
                 ? "text-white"
@@ -194,23 +185,16 @@ const ProfilePage = () => {
             }`}
           >
             Favourites
-
-            <span className="text-xs text-zinc-600">
-              0
-            </span>
-
+            <span className="text-xs text-zinc-600">0</span>
             {activeTab === "favourites" && (
               <span className="absolute bottom-0 left-0 h-px w-full bg-white" />
             )}
           </button>
 
           {/* Affiliate */}
-
           <button
             type="button"
-            onClick={() =>
-              setActiveTab("affiliate")
-            }
+            onClick={() => setActiveTab("affiliate")}
             className={`relative flex items-center gap-2 pb-4 text-sm transition ${
               activeTab === "affiliate"
                 ? "text-white"
@@ -218,14 +202,11 @@ const ProfilePage = () => {
             }`}
           >
             <Zap size={13} />
-
             Affiliate
-
             {activeTab === "affiliate" && (
               <span className="absolute bottom-0 left-0 h-px w-full bg-white" />
             )}
           </button>
-
         </div>
       </section>
 
@@ -235,77 +216,45 @@ const ProfilePage = () => {
 
       {activeTab === "overview" && (
         <div className="space-y-4">
-
           {/* ================================================= */}
           {/* PROFILE CARD */}
           {/* ================================================= */}
 
           <section className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-7 backdrop-blur-xl sm:p-8">
-
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-
               {/* ================================================= */}
               {/* USER */}
               {/* ================================================= */}
 
               <div className="flex items-center gap-5">
-
-                {/* Avatar */}
-
-                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05]">
-
-                  {user?.picture ? (
-                    <Image
-                      src={user.picture}
-                      alt={
-                        user?.name || "photo"
-                      }
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center text-xl font-semibold text-zinc-400">
-                      {user?.name
-                        ?.charAt(0)
-                        ?.toUpperCase()}
-                    </div>
-                  )}
-
+                {/* Avatar (initials) */}
+                <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-lime-300 to-lime-500 text-2xl font-bold tracking-wide text-black">
+                  {getInitials(user?.name)}
                 </div>
 
                 {/* Info */}
-
                 <div>
-
                   <h2 className="text-xl font-semibold text-white">
                     {user?.name}
                   </h2>
 
                   <div className="mt-1 flex items-center gap-2 text-sm text-zinc-500">
-
                     <Mail size={14} />
 
-                    <span>
-                      {user?.email}
-                    </span>
+                    <span>{user?.email}</span>
 
                     <button
                       type="button"
-                      onClick={
-                        handleCopyEmail
-                      }
+                      onClick={handleCopyEmail}
                       className="transition hover:text-white"
                       title="Copy email"
                     >
                       <Copy size={13} />
                     </button>
-
                   </div>
 
                   {/* Badges */}
-
                   <div className="mt-3 flex flex-wrap items-center gap-2">
-
                     <span
                       className={`rounded-full border px-3 py-1 text-[11px] font-medium ${
                         isPremium
@@ -313,19 +262,14 @@ const ProfilePage = () => {
                           : "border-white/10 bg-white/[0.04] text-zinc-400"
                       }`}
                     >
-                      {isPremium
-                        ? "PREMIUM"
-                        : "FREE PLAN"}
+                      {isPremium ? "PREMIUM" : "FREE PLAN"}
                     </span>
 
                     <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-[11px] text-zinc-500">
                       0 favourites
                     </span>
-
                   </div>
-
                 </div>
-
               </div>
 
               {/* ================================================= */}
@@ -333,39 +277,17 @@ const ProfilePage = () => {
               {/* ================================================= */}
 
               <div className="flex flex-wrap gap-2">
-
-                {/* Edit Profile */}
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setShowEditModal(true)
-                  }
-                  className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
-                >
-                  <Pencil size={14} />
-
-                  Edit Profile
-                </button>
-
                 {/* Password */}
-
                 <button
                   type="button"
-                  onClick={
-                    handlePasswordClick
-                  }
+                  onClick={handlePasswordClick}
                   className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
                 >
                   <KeyRound size={14} />
 
-                  {hasPassword
-                    ? "Change Password"
-                    : "Set Password"}
+                  {hasPassword ? "Change Password" : "Set Password"}
                 </button>
-
               </div>
-
             </div>
 
             {/* ================================================= */}
@@ -373,30 +295,21 @@ const ProfilePage = () => {
             {/* ================================================= */}
 
             <div className="mt-7 border-t border-white/[0.06] pt-5">
-
-              <p className="text-xs text-zinc-600">
-                Member since {455}
-              </p>
-
+              <p className="text-xs text-zinc-600">Member since {455}</p>
             </div>
-
           </section>
 
           {/* ================================================= */}
           {/* SUBSCRIPTION */}
           {/* ================================================= */}
 
-          <SubscriptionSection
-            isPremium={isPremium}
-            usage={usage}
-          />
+          <SubscriptionSection isPremium={isPremium} usage={usage} />
 
           {/* ================================================= */}
           {/* SECURITY */}
           {/* ================================================= */}
 
           <SecuritySection />
-
         </div>
       )}
 
@@ -404,17 +317,13 @@ const ProfilePage = () => {
       {/* FAVOURITES */}
       {/* ================================================= */}
 
-      {activeTab === "favourites" && (
-        <FavouritesTab />
-      )}
+      {activeTab === "favourites" && <FavouritesTab />}
 
       {/* ================================================= */}
       {/* AFFILIATE */}
       {/* ================================================= */}
 
-      {activeTab === "affiliate" && (
-        <AffiliateTab />
-      )}
+      {activeTab === "affiliate" && <AffiliateTab />}
 
       {/* ================================================= */}
       {/* ACCOUNT MODALS */}
@@ -425,18 +334,12 @@ const ProfilePage = () => {
           user={user}
           showEditModal={showEditModal}
           showDeleteModal={showDeleteModal}
-          onCloseEdit={() =>
-            setShowEditModal(false)
-          }
-          onCloseDelete={() =>
-            setShowDeleteModal(false)
-          }
+          onCloseEdit={() => setShowEditModal(false)}
+          onCloseDelete={() => setShowDeleteModal(false)}
         />
       )}
-
     </main>
   );
 };
 
 export default ProfilePage;
-

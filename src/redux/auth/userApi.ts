@@ -1,5 +1,6 @@
 import { IsActive, IUser, Role } from "@/src/components/shared/types";
 import { baseApi } from "../baseApi";
+import { setUser, clearUser } from "./userSlice"; // ⚠️ tomar slice er actual path/naam
 
 interface CreateUserPayload {
   name: string;
@@ -13,14 +14,16 @@ interface UpdateUserPayload {
   address?: string;
   picture?: string;
   isDeleted?: boolean;
-    isActive?: IsActive;
-    isVerified?: boolean;
-    role: Role;
+  isActive?: IsActive;
+  isVerified?: boolean;
+  role: Role;
 }
+
 interface UpdateUserRequest {
   userId: string;
   data: UpdateUserPayload;
 }
+
 interface UserResponse {
   success: boolean;
   message: string;
@@ -56,13 +59,18 @@ const userApi = baseApi.injectEndpoints({
       providesTags: ["User"],
     }),
 
-    getMyProfile: builder.query<UserResponse, void>({
-      query: () => ({
-        url: "/user/me",
-        method: "GET",
-      }),
-      providesTags: ["User"],
-    }),
+    // ---------------- CURRENT LOGGED-IN USER ----------------
+   getMyProfile: builder.query<UserResponse, void>({
+  query: () => ({ url: "/user/me", method: "GET" }),
+  async onQueryStarted(_, { dispatch, queryFulfilled }) {
+    try {
+      const { data } = await queryFulfilled;
+      dispatch(setUser(data.data));
+    } catch {
+      dispatch(clearUser());
+    }
+  },
+}),
 
     createUser: builder.mutation<UserResponse, CreateUserPayload>({
       query: (data) => ({
@@ -73,14 +81,14 @@ const userApi = baseApi.injectEndpoints({
       invalidatesTags: ["User"],
     }),
 
-    updateUser: builder.mutation<UserResponse, UpdateUserRequest>({
-  query: ({ userId, data }) => ({
-    url: `/user/${userId}`,
-    method: "PATCH",
-    body: data,
-  }),
-  invalidatesTags: ["User"],
-}),
+    // updateUser: builder.mutation<UserResponse, UpdateUserRequest>({
+    //   query: ({ userId, data }) => ({
+    //     url: `/user/${userId}`,
+    //     method: "PATCH",
+    //     body: data,
+    //   }),
+    //   invalidatesTags: ["User", "Me"],
+    // }),
 
     deleteUser: builder.mutation<DeleteUserResponse, string>({
       query: (userId) => ({
@@ -96,7 +104,10 @@ export const {
   useGetAllUsersQuery,
   useGetSingleUserQuery,
   useGetMyProfileQuery,
+  useLazyGetMyProfileQuery,
   useCreateUserMutation,
-  useUpdateUserMutation,
+  // useUpdateUserMutation,
   useDeleteUserMutation,
 } = userApi;
+
+export default userApi;

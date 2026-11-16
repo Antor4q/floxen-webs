@@ -1,4 +1,3 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
@@ -14,16 +13,13 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 
 import { useLoginMutation } from "@/src/redux/auth/authApi";
+
 import { setAuthenticated } from "@/src/redux/auth/authSlice";
+import { useLazyGetMyProfileQuery } from "@/src/redux/auth/userApi";
 
 const signInSchema = z.object({
-  email: z
-    .string()
-    .email("Please enter a valid email address"),
-
-  password: z
-    .string()
-    .min(1, "Password is required"),
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(1, "Password is required"),
 });
 
 type SignInFormData = z.infer<typeof signInSchema>;
@@ -36,6 +32,8 @@ const SignInForm = () => {
   const dispatch = useDispatch();
 
   const [login, { isLoading }] = useLoginMutation();
+  const [refetchMe, { isFetching: isFetchingUser }] =
+    useLazyGetMyProfileQuery();
 
   const {
     register,
@@ -43,7 +41,6 @@ const SignInForm = () => {
     formState: { errors },
   } = useForm<SignInFormData>({
     resolver: zodResolver(signInSchema),
-
     defaultValues: {
       email: "",
       password: "",
@@ -54,35 +51,34 @@ const SignInForm = () => {
     try {
       setErrorMessage("");
 
-      // Login
-      // Backend will set JWT in HTTP-only cookie
+      // Login: backend HTTP-only cookie e JWT set kore
       await login(data).unwrap();
 
-      // AuthInitializer will fetch /users/me
-      // and populate user data in Redux.
       dispatch(setAuthenticated(true));
 
-      // Redirect after successful login
-      router.push("/");
+      // Fresh user data ene Redux e boshai, redirect er AGE.
+      // false = cache use na kore notun request pathay
+      await refetchMe(undefined, false).unwrap();
+
+      router.replace("/");
     } catch (error: any) {
       console.error("Sign in failed:", error);
 
       const message =
-        error?.data?.message ||
-        "Invalid email or password.";
+        error?.data?.message || "Invalid email or password.";
 
       setErrorMessage(message);
     }
   };
 
   const handleGoogleAuth = () => {
-    window.location.href =
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
   };
+
+  const isSubmitting = isLoading || isFetchingUser;
 
   return (
     <div className="w-full max-w-[520px] rounded-3xl border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl">
-
       {/* Header */}
       <div className="mb-8">
         <h2 className="text-center text-2xl font-bold text-white">
@@ -109,7 +105,6 @@ const SignInForm = () => {
           className="flex h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-[#141E2C] text-sm font-medium text-white transition hover:bg-[#1A2535]"
         >
           <FcGoogle size={18} />
-
           Continue with Google
         </button>
       </div>
@@ -126,10 +121,7 @@ const SignInForm = () => {
       </div>
 
       {/* Form */}
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-5"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
         {/* Email */}
         <div>
           <input
@@ -160,16 +152,10 @@ const SignInForm = () => {
 
             <button
               type="button"
-              onClick={() =>
-                setShowPassword((prev) => !prev)
-              }
+              onClick={() => setShowPassword((prev) => !prev)}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-white"
             >
-              {showPassword ? (
-                <EyeOff size={18} />
-              ) : (
-                <Eye size={18} />
-              )}
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
 
@@ -193,18 +179,15 @@ const SignInForm = () => {
         {/* Submit */}
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={isSubmitting}
           className="h-12 w-full cursor-pointer rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-400 backdrop-blur-xl transition hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {isLoading
-            ? "SIGNING IN..."
-            : "SIGN IN"}
+          {isSubmitting ? "SIGNING IN..." : "SIGN IN"}
         </button>
 
         {/* Footer */}
         <p className="text-center text-sm text-gray-400">
           New Here?{" "}
-
           <Link
             href="/signUp"
             className="font-medium text-violet-400 hover:underline"

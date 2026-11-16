@@ -10,6 +10,7 @@ interface ForgotPasswordPayload {
 }
 
 interface ResetPasswordPayload {
+  id: string;
   token: string;
   password: string;
 }

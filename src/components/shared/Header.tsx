@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -13,6 +12,20 @@ import { clearUser } from "@/src/redux/auth/userSlice";
 import { clearAuth } from "@/src/redux/auth/authSlice";
 import { useLogoutMutation } from "@/src/redux/auth/authApi";
 
+// Name theke first 2 ta character (uppercase)
+// 2+ word thakle prothom 2 word er prothom akkhor, na hole prothom 2 akkhor
+const getInitials = (name?: string) => {
+  if (!name || !name.trim()) return "U";
+
+  const parts = name.trim().split(/\s+/);
+
+  const initials =
+    parts.length > 1
+      ? Array.from(parts[0])[0] + Array.from(parts[1])[0]
+      : Array.from(parts[0]).slice(0, 2).join("");
+
+  return initials.toUpperCase();
+};
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -21,12 +34,9 @@ const Header = () => {
 
   const dispatch = useDispatch();
 
-  const { user } = useSelector(
-    (state: RootState) => state.user
-  );
+  const { user } = useSelector((state: RootState) => state.user);
 
-  const [logout, { isLoading: isLoggingOut }] =
-    useLogoutMutation();
+  const [logout, { isLoading: isLoggingOut }] = useLogoutMutation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,8 +45,7 @@ const Header = () => {
 
     window.addEventListener("scroll", handleScroll);
 
-    return () =>
-      window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLogout = async () => {
@@ -102,38 +111,23 @@ const Header = () => {
               ${scrolled ? "gap-7" : "gap-10"}
             `}
           >
-            <Link
-              href="/"
-              className="transition hover:text-white"
-            >
+            <Link href="/" className="transition hover:text-white">
               Home
             </Link>
 
-            <Link
-              href="/about"
-              className="transition hover:text-white"
-            >
+            <Link href="/about" className="transition hover:text-white">
               About
             </Link>
 
-            <Link
-              href="/docs"
-              className="transition hover:text-white"
-            >
+            <Link href="/docs" className="transition hover:text-white">
               Docs
             </Link>
 
-            <Link
-              href="/affiliate"
-              className="transition hover:text-white"
-            >
+            <Link href="/affiliate" className="transition hover:text-white">
               Affiliate
             </Link>
 
-            <Link
-              href="/contact"
-              className="transition hover:text-white"
-            >
+            <Link href="/contact" className="transition hover:text-white">
               Contact
             </Link>
           </nav>
@@ -162,24 +156,12 @@ const Header = () => {
                 {/* Profile Button */}
                 <button
                   type="button"
-                  onClick={() =>
-                    setProfileOpen((prev) => !prev)
-                  }
+                  onClick={() => setProfileOpen((prev) => !prev)}
                   className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 p-1.5 pr-3 transition hover:bg-white/10"
                 >
-                  {user.picture ? (
-                    <Image
-                      src={user.picture}
-                      alt={user.name}
-                      width={34}
-                      height={34}
-                      className="h-[34px] w-[34px] rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-white/10 text-zinc-300">
-                      <User size={17} />
-                    </div>
-                  )}
+                  <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-gradient-to-br from-lime-300 to-lime-500 text-xs font-bold tracking-wide text-black">
+                    {getInitials(user.name)}
+                  </div>
 
                   <ChevronDown
                     size={15}
@@ -197,19 +179,9 @@ const Header = () => {
                     <div className="overflow-hidden rounded-2xl border border-white/10 bg-[#111]/95 p-2 shadow-[0_20px_60px_rgba(0,0,0,.5)] backdrop-blur-2xl">
                       {/* User Info */}
                       <div className="flex items-center gap-3 rounded-xl p-3">
-                        {user.picture ? (
-                          <Image
-                            src={user.picture}
-                            alt={user.name}
-                            width={42}
-                            height={42}
-                            className="h-[42px] w-[42px] rounded-full object-cover"
-                          />
-                        ) : (
-                          <div className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full bg-white/10 text-zinc-300">
-                            <User size={20} />
-                          </div>
-                        )}
+                        <div className="flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-lime-300 to-lime-500 text-sm font-bold tracking-wide text-black">
+                          {getInitials(user.name)}
+                        </div>
 
                         <div className="min-w-0">
                           <p className="truncate text-sm font-medium text-white">
@@ -254,9 +226,7 @@ const Header = () => {
                       >
                         <LogOut size={16} />
 
-                        {isLoggingOut
-                          ? "Logging out..."
-                          : "Logout"}
+                        {isLoggingOut ? "Logging out..." : "Logout"}
                       </button>
                     </div>
                   </div>
@@ -283,31 +253,19 @@ const Header = () => {
                 Home
               </Link>
 
-              <Link
-                href="/about"
-                onClick={() => setOpen(false)}
-              >
+              <Link href="/about" onClick={() => setOpen(false)}>
                 About
               </Link>
 
-              <Link
-                href="/docs"
-                onClick={() => setOpen(false)}
-              >
+              <Link href="/docs" onClick={() => setOpen(false)}>
                 Docs
               </Link>
 
-              <Link
-                href="/affiliate"
-                onClick={() => setOpen(false)}
-              >
+              <Link href="/affiliate" onClick={() => setOpen(false)}>
                 Affiliate
               </Link>
 
-              <Link
-                href="/contact"
-                onClick={() => setOpen(false)}
-              >
+              <Link href="/contact" onClick={() => setOpen(false)}>
                 Contact
               </Link>
 
@@ -324,19 +282,9 @@ const Header = () => {
                   <div className="space-y-3">
                     {/* Mobile User */}
                     <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3">
-                      {user.picture ? (
-                        <Image
-                          src={user.picture}
-                          alt={user.name}
-                          width={40}
-                          height={40}
-                          className="h-10 w-10 rounded-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
-                          <User size={18} />
-                        </div>
-                      )}
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-lime-300 to-lime-500 text-sm font-bold tracking-wide text-black">
+                        {getInitials(user.name)}
+                      </div>
 
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-sm text-white">
@@ -368,9 +316,7 @@ const Header = () => {
                     >
                       <LogOut size={17} />
 
-                      {isLoggingOut
-                        ? "Logging out..."
-                        : "Logout"}
+                      {isLoggingOut ? "Logging out..." : "Logout"}
                     </button>
                   </div>
                 )}
@@ -384,4 +330,3 @@ const Header = () => {
 };
 
 export default Header;
-
