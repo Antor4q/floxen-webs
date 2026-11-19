@@ -1,13 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Copy,
-  KeyRound,
-  Mail,
-  Pencil,
-  Zap,
-} from "lucide-react";
+import { Copy, KeyRound, Mail, Zap } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 
@@ -92,7 +86,6 @@ const ProfilePage = () => {
   // MODALS
   // --------------------------------------------------
 
-  const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // --------------------------------------------------
@@ -102,7 +95,7 @@ const ProfilePage = () => {
   const usage: UsageData = {
     prompts: {
       used: isPremium ? 2 : 1,
-      limit: isPremium ? 3 : 3,
+      limit: 3,
     },
 
     sourceDownloads: {
@@ -117,16 +110,12 @@ const ProfilePage = () => {
   };
 
   // --------------------------------------------------
-  // PASSWORD
+  // HANDLERS
   // --------------------------------------------------
 
   const handlePasswordClick = () => {
     router.push("/password");
   };
-
-  // --------------------------------------------------
-  // COPY EMAIL
-  // --------------------------------------------------
 
   const handleCopyEmail = async () => {
     if (!user?.email) return;
@@ -137,6 +126,14 @@ const ProfilePage = () => {
       console.error("Failed to copy email:", error);
     }
   };
+
+  // createdAt IUser type e na thakle type e add koro
+  const memberSince = user?.createdAt
+    ? new Date(user.createdAt).toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+      })
+    : "";
 
   return (
     <main className="relative mx-auto max-w-360 px-10 pt-40 pb-10">
@@ -222,10 +219,7 @@ const ProfilePage = () => {
 
           <section className="rounded-2xl border border-white/[0.07] bg-white/[0.025] p-7 backdrop-blur-xl sm:p-8">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-              {/* ================================================= */}
               {/* USER */}
-              {/* ================================================= */}
-
               <div className="flex items-center gap-5">
                 {/* Avatar (initials) */}
                 <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-lime-300 to-lime-500 text-2xl font-bold tracking-wide text-black">
@@ -272,30 +266,24 @@ const ProfilePage = () => {
                 </div>
               </div>
 
-              {/* ================================================= */}
               {/* PROFILE ACTIONS */}
-              {/* ================================================= */}
-
               <div className="flex flex-wrap gap-2">
-                {/* Password */}
                 <button
                   type="button"
                   onClick={handlePasswordClick}
                   className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-zinc-300 transition hover:bg-white/[0.08] hover:text-white"
                 >
                   <KeyRound size={14} />
-
                   {hasPassword ? "Change Password" : "Set Password"}
                 </button>
               </div>
             </div>
 
-            {/* ================================================= */}
             {/* MEMBER INFO */}
-            {/* ================================================= */}
-
             <div className="mt-7 border-t border-white/[0.06] pt-5">
-              <p className="text-xs text-zinc-600">Member since {455}</p>
+              <p className="text-xs text-zinc-600">
+                Member since {memberSince}
+              </p>
             </div>
           </section>
 
@@ -309,20 +297,18 @@ const ProfilePage = () => {
           {/* SECURITY */}
           {/* ================================================= */}
 
-          <SecuritySection />
+          <SecuritySection
+            hasPassword={hasPassword}
+            onPasswordClick={handlePasswordClick}
+            onDeleteClick={() => setShowDeleteModal(true)}
+          />
         </div>
       )}
 
-      {/* ================================================= */}
       {/* FAVOURITES */}
-      {/* ================================================= */}
-
       {activeTab === "favourites" && <FavouritesTab />}
 
-      {/* ================================================= */}
       {/* AFFILIATE */}
-      {/* ================================================= */}
-
       {activeTab === "affiliate" && <AffiliateTab />}
 
       {/* ================================================= */}
@@ -331,10 +317,7 @@ const ProfilePage = () => {
 
       {user && (
         <AccountModals
-          user={user}
-          showEditModal={showEditModal}
           showDeleteModal={showDeleteModal}
-          onCloseEdit={() => setShowEditModal(false)}
           onCloseDelete={() => setShowDeleteModal(false)}
         />
       )}

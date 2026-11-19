@@ -26,4 +26,5 @@ export interface IUser {
   isVerified?: boolean;
   role: Role;
   auths: IAuthProvider[];
+  createdAt?: string;
 }

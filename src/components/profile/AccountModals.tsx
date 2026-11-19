@@ -2,15 +2,9 @@
 
 import { Trash2, X } from "lucide-react";
 
-import type { IUser } from "@/src/components/shared/types";
 
 interface AccountModalsProps {
-  user: IUser;
-
-  showEditModal: boolean;
   showDeleteModal: boolean;
-
-  onCloseEdit: () => void;
   onCloseDelete: () => void;
 }
 
